@@ -16,7 +16,6 @@ public class TestSimbir {
     String login = PropertyReader.getProperty(propertyFilePath, "login");
     String password = PropertyReader.getProperty(propertyFilePath, "password");
 
-
     @Before
     public void start(){
         WebDriver driver = WebDriverFactory.getDriver();
