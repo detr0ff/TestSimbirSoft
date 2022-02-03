@@ -2,6 +2,7 @@
 import Browser.WebDriverFactory;
 import Pages.AuthPage;
 import Pages.MailPage;
+import Utils.PropertyReader;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,18 +11,23 @@ import java.time.Duration;
 import java.util.List;
 
 public class TestSimbir {
+    String propertyFilePath = "src/test/resources/conf.properties";
+    String url = PropertyReader.getProperty(propertyFilePath, "url");
+    String login = PropertyReader.getProperty(propertyFilePath, "login");
+    String password = PropertyReader.getProperty(propertyFilePath, "password");
+
 
     @Before
     public void start(){
         WebDriver driver = WebDriverFactory.getDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-        driver.get("https://mail.google.com/");
+        driver.get(url);
     }
 
     @Test
     public void Test1(){
         AuthPage authPage = new AuthPage();
-        authPage.Authorization(testData.login, testData.password);
+        authPage.authorization(login, password);
         MailPage mailPage = new MailPage();
         List<String> receivedThemes = mailPage.getMailsThemes();
         String theme = testData.mailTheme;
